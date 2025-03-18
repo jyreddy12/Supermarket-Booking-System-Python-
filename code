@@ -1,0 +1,21 @@
+class Supermarket:
+    def __init__(self):
+        self.slots = {}
+    def add_slot(self, slot_time, capacity):
+        self.slots[slot_time] = {"capacity": capacity, "booked": 0}
+    def book_slot(self, slot_time, quantity):
+        if slot_time in self.slots and self.slots[slot_time]["booked"] + quantity <= self.slots[slot_time]["capacity"]:
+            self.slots[slot_time]["booked"] += quantity
+            return True
+        return False
+    def display_slots(self):
+        return [{"time": k, "capacity": v["capacity"], "booked": v["booked"]} for k, v in self.slots.items()]
+
+supermarket = Supermarket()
+supermarket.add_slot("10:00 AM", 10)
+supermarket.add_slot("11:00 AM", 15)
+print(supermarket.display_slots())
+print(supermarket.book_slot("10:00 AM", 5))
+print(supermarket.display_slots())
+print(supermarket.book_slot("11:00 AM", 20))
+print(supermarket.display_slots())
